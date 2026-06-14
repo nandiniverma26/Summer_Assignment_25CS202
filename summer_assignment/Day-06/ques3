@@ -1,0 +1,22 @@
+// wap to count set bits in a no. 
+
+#include <stdio.h>
+
+int main() {
+    unsigned int n, originalN;
+    int count = 0;
+    printf("Enter a positive integer: ");
+    scanf("%u", &n);
+    
+    originalN = n;
+
+    while (n > 0) {
+        count += (n & 1);
+        
+        n >>= 1; 
+    }
+
+    printf("The number of set bits (1s) in %u is: %d\n", originalN, count);
+
+    return 0;
+}

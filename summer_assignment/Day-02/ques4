@@ -1,0 +1,28 @@
+//wap to check whether a no. is palindrome 
+
+#include <stdio.h>
+
+int main() {
+    long long n, originalN, reversed = 0;
+    int remainder; 
+
+    printf("Enter an integer: ");
+    scanf("%lld", &n);
+
+    originalN = n;
+
+    while (n != 0) {
+        remainder = n % 10;
+        reversed = reversed * 10 + remainder;
+        n /= 10;
+    }
+
+    if (originalN == reversed) {
+        printf("%lld is a palindrome number.\n", originalN);
+    } 
+    else {
+        printf("%lld is NOT a palindrome number.\n", originalN);
+    }
+
+    return 0;
+}

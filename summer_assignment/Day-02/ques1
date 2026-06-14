@@ -1,0 +1,26 @@
+//wap to find sum of digits of a no.
+
+#include <stdio.h>
+
+int main() {
+    long long n;
+    int sum = 0, digit;
+
+    printf("Enter an integer: ");
+    scanf("%lld", &n);
+
+    if (n < 0) {
+        n = -n;
+    }
+
+    while (n != 0) {
+        digit = n % 10;    
+        sum += digit;     
+        n /= 10;            
+    }
+    
+    printf("Sum of the digits: %d\n", sum);
+
+    return 0;
+}
+

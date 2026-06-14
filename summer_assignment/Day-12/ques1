@@ -1,0 +1,34 @@
+// wap to write function for palindrome 
+
+#include <stdio.h>
+
+int isPalindrome(long long n) {
+    if (n < 0) {
+        return 0;
+    }
+
+    long long originalN = n;
+    long long reversedN = 0;
+
+    while (n > 0) {
+        reversedN = reversedN * 10 + (n % 10);
+        n = n / 10;
+    }
+
+    return (originalN == reversedN);
+}
+
+int main() {
+    long long num;
+
+    printf("Enter an integer: ");
+    scanf("%lld", &num);
+
+    if (isPalindrome(num)) {
+        printf("%lld is a palindrome.\n", num);
+    } else {
+        printf("%lld is not a palindrome.\n", num);
+    }
+
+    return 0;
+}

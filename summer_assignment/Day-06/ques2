@@ -1,0 +1,34 @@
+// wap to convert binary to decimal 
+
+#include <stdio.h>
+
+int main() {
+    long long n, originalN;
+    int decimal = 0;
+    int base = 1; 
+    int lastDigit;
+
+    printf("Enter a binary number (only 1s and 0s): ");
+    scanf("%lld", &n);
+    
+    originalN = n;
+
+    while (n > 0) {
+        lastDigit = n % 10;  
+        
+        if (lastDigit != 0 && lastDigit != 1) {
+            printf("Error: Invalid binary number. Please enter only 1s and 0s.\n");
+            return 1; 
+        }
+
+        decimal += lastDigit * base;
+        
+        base = base * 2;
+        
+        n = n / 10;
+    }
+
+    printf("The decimal equivalent of %lld is: %d\n", originalN, decimal);
+
+    return 0;
+}

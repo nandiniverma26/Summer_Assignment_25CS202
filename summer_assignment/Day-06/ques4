@@ -1,0 +1,36 @@
+// wap to find x^n without pow()
+
+#include <stdio.h>
+
+int main() {
+    double base, result = 1.0;
+    int exponent, absExponent;
+
+    printf("Enter the base (x): ");
+    scanf("%lf", &base);
+    printf("Enter the exponent (n): ");
+    scanf("%d", &exponent);
+
+    if (exponent < 0) {
+        absExponent = -exponent;
+    } else {
+        absExponent = exponent;
+    }
+
+    
+    for (int i = 1; i <= absExponent; ++i) {
+        result *= base;
+    }
+
+    if (exponent < 0) {
+        if (base == 0) {
+            printf("Error: Division by zero (0 raised to a negative power is undefined).\n");
+            return 1; 
+        }
+        result = 1.0 / result;
+    }
+
+    printf("%.2lf^%d = %.6lf\n", base, exponent, result);
+
+    return 0;
+}

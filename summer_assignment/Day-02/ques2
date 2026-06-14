@@ -1,0 +1,21 @@
+//wap to reverse a no. 
+
+#include <stdio.h>
+
+int main() {
+    long long n, reversed = 0;
+    int remainder;
+
+    printf("Enter an integer: ");
+    scanf("%lld", &n);
+
+    while (n != 0) {
+        remainder = n % 10;               
+        reversed = reversed * 10 + remainder; 
+        n /= 10;                             
+    }
+
+    printf("Reversed number: %lld\n", reversed);
+
+    return 0;
+}

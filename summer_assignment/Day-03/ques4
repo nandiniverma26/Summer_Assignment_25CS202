@@ -1,0 +1,30 @@
+// wap to find LCM of 2 no. 
+
+#include <stdio.h>
+
+int main() {
+    int n1, n2, maxStep;
+    long long lcm;
+
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &n1, &n2);
+
+    if (n1 > n2) {
+        maxStep = n1;
+    } else {
+        maxStep = n2;
+    }
+    
+    lcm = maxStep;
+
+    while (1) {
+        if ((lcm % n1 == 0) && (lcm % n2 == 0)) {
+            printf("The LCM of %d and %d is: %lld\n", n1, n2, lcm);
+            break; 
+        }
+        
+        lcm += maxStep; 
+    }
+
+    return 0;
+}

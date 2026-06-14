@@ -1,0 +1,23 @@
+//wap to find GCD of 2 no.
+
+#include <stdio.h>
+
+int main() {
+    int n1, n2, remainder;
+
+    printf("Enter two integers: ");
+    scanf("%d %d", &n1, &n2);
+
+    if (n1 < 0) n1 = -n1;
+    if (n2 < 0) n2 = -n2;
+
+    while (n2 != 0) {
+        remainder = n1 % n2;
+        n1 = n2;              
+        n2 = remainder;       
+    }
+
+    printf("The GCD is: %d\n", n1);
+
+    return 0;
+}

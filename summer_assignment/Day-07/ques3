@@ -1,0 +1,33 @@
+// wap to recursive sum of digits
+
+#include <stdio.h>
+
+int sumOfDigits(long long n) {
+    if (n == 0) {
+        return 0;
+    }
+    
+    return (n % 10) + sumOfDigits(n / 10);
+}
+
+int main() {
+    long long n, temp;
+
+    printf("Enter an integer: ");
+    scanf("%lld", &n);
+
+    if (n < 0) {
+        temp = -n;
+    } else {
+        temp = n;
+    }
+
+    if (temp == 0) {
+        printf("Sum of digits of 0 is: 0\n");
+    } 
+    else {
+        printf("Sum of digits of %lld is: %d\n", n, sumOfDigits(temp));
+    }
+
+    return 0;
+}

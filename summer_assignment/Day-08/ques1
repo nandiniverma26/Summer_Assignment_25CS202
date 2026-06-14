@@ -1,0 +1,35 @@
+// wap to print half pyramid pattern
+
+#include <stdio.h>
+
+long long reverseRecursive(long long n, long long reversed) {
+    if (n == 0) {
+        return reversed;
+    }
+
+    return reverseRecursive(n / 10, reversed * 10 + (n % 10));
+}
+
+int main() {
+    long long n, temp;
+    long long result;
+
+    printf("Enter an integer: ");
+    scanf("%lld", &n);
+
+    if (n < 0) {
+        temp = -n;
+    } else {
+        temp = n;
+    }
+
+    result = reverseRecursive(temp, 0);
+
+    if (n < 0) {
+        result = -result;
+    }
+
+    printf("Reversed number: %lld\n", result);
+
+    return 0;
+}

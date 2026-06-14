@@ -1,0 +1,33 @@
+// wap to write function to find factorial 
+
+#include <stdio.h>
+
+unsigned long long findFactorial(int n) {
+    unsigned long long fact = 1;
+
+    for (int i = 1; i <= n; i++) {
+        fact *= i; 
+    }
+
+    return fact; 
+}
+
+int main() {
+    int num;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &num);
+
+    if (num < 0) {
+        printf("Error: Factorial of a negative number is undefined.\n");
+    } 
+    else if (num > 20) {
+        printf("Error: Value too large. This program can only compute up to 20!\n");
+    } 
+    else {
+        unsigned long long result = findFactorial(num);
+        printf("The factorial of %d is: %llu\n", num, result);
+    }
+
+    return 0;
+}
