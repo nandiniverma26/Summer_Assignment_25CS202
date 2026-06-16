@@ -1,0 +1,44 @@
+// wap to find missing no. in array 
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    int arr[MAX_SIZE];
+    int n; 
+
+    printf("Enter the upper range limit 'n' (2 to %d): ", MAX_SIZE + 1);
+    if (scanf("%d", &n) != 1 || n < 2 || n > MAX_SIZE + 1) {
+        printf("Error: Invalid range or size constraint.\n");
+        return 1;
+    }
+
+    int elementCount = n - 1;
+
+    printf("Enter %d distinct integers in the range 1 to %d:\n", elementCount, n);
+    for (int i = 0; i < elementCount; i++) {
+        printf("Element [%d]: ", i);
+        if (scanf("%d", &arr[i]) != 1 || arr[i] < 1 || arr[i] > n) {
+            printf("Error: Invalid input. Elements must be within 1 and %d.\n", n);
+            return 1;
+        }
+    }
+
+    int xorAll = 0;
+    int xorArray = 0;
+
+    for (int i = 1; i <= n; i++) {
+        xorAll ^= i;
+    }
+
+    for (int i = 0; i < elementCount; i++) {
+        xorArray ^= arr[i];
+    }
+
+    int missingNumber = xorAll ^ xorArray;
+
+    printf("\nThe missing number in the range is: %d\n", missingNumber);
+
+    return 0;
+}

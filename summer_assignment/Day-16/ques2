@@ -1,0 +1,61 @@
+// wap to find maximum frequency element 
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    int arr[MAX_SIZE];
+    int visited[MAX_SIZE] = {0}; 
+    int frequency[MAX_SIZE] = {0}; 
+    int n;
+    int maxFreq = 0;
+
+    printf("Enter the number of elements (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
+        printf("Error: Invalid size. Must be between 1 and %d.\n", MAX_SIZE);
+        return 1;
+    }
+
+    printf("Enter %d integers:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("Element [%d]: ", i);
+        if (scanf("%d", &arr[i]) != 1) {
+            printf("Error: Invalid input. Expected an integer.\n");
+            return 1;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (visited[i] == 1) {
+            continue; 
+        }
+
+        int count = 1;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                count++;
+                visited[j] = 1; 
+            }
+        }
+        
+        frequency[i] = count; 
+        
+        if (count > maxFreq) {
+            maxFreq = count; 
+        }
+    }
+
+    printf("\n--- Maximum Frequency Results ---\n");
+    printf("Highest Frequency detected: %d time(s)\n", maxFreq);
+    printf("Element(s) with this frequency: ");
+    
+    for (int i = 0; i < n; i++) {
+        if (frequency[i] == maxFreq) {
+            printf("%d ", arr[i]);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
