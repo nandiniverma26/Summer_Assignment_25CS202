@@ -1,0 +1,60 @@
+// wap to merge arrays
+
+#include <stdio.h>
+
+#define MAX_SIZE 50
+#define MERGED_MAX (MAX_SIZE * 2) 
+
+int main() {
+    int arr1[MAX_SIZE], arr2[MAX_SIZE];
+    int merged[MERGED_MAX];
+    int n1, n2, n3;
+
+    printf("Enter the number of elements for Array 1 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n1) != 1 || n1 <= 0 || n1 > MAX_SIZE) {
+        printf("Error: Invalid size for Array 1.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers for Array 1:\n", n1);
+    for (int i = 0; i < n1; i++) {
+        printf("Array1 [%d]: ", i);
+        if (scanf("%d", &arr1[i]) != 1) {
+            printf("Error: Invalid input.\n");
+            return 1;
+        }
+    }
+
+    printf("Enter the number of elements for Array 2 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n2) != 1 || n2 <= 0 || n2 > MAX_SIZE) {
+        printf("Error: Invalid size for Array 2.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers for Array 2:\n", n2);
+    for (int i = 0; i < n2; i++) {
+        printf("Array2 [%d]: ", i);
+        if (scanf("%d", &arr2[i]) != 1) {
+            printf("Error: Invalid input.\n");
+            return 1;
+        }
+    }
+
+    n3 = n1 + n2; 
+
+    for (int i = 0; i < n1; i++) {
+        merged[i] = arr1[i];
+    }
+
+    for (int i = 0; i < n2; i++) {
+        merged[n1 + i] = arr2[i];
+    }
+
+    printf("\nMerged array elements are (Total Size: %d):\n", n3);
+    for (int i = 0; i < n3; i++) {
+        printf("%d ", merged[i]);
+    }
+    printf("\n");
+
+    return 0;
+}

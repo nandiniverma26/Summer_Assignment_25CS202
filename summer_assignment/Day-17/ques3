@@ -1,0 +1,71 @@
+// wap to intersection of arrays 
+
+#include <stdio.h>
+
+#define MAX_SIZE 50
+
+int isPresent(int arr[], int size, int value) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == value) {
+            return 1; 
+        }
+    }
+    return 0; 
+}
+
+int main() {
+    int arr1[MAX_SIZE], arr2[MAX_SIZE];
+    int intersectionArr[MAX_SIZE]; 
+    int n1, n2, intersectionSize = 0;
+
+    printf("Enter the number of elements for Array 1 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n1) != 1 || n1 <= 0 || n1 > MAX_SIZE) {
+        printf("Error: Invalid size for Array 1.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers for Array 1:\n", n1);
+    for (int i = 0; i < n1; i++) {
+        printf("Array1 [%d]: ", i);
+        if (scanf("%d", &arr1[i]) != 1) {
+            printf("Error: Invalid input. Expected an integer.\n");
+            return 1;
+        }
+    }
+
+    printf("Enter the number of elements for Array 2 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n2) != 1 || n2 <= 0 || n2 > MAX_SIZE) {
+        printf("Error: Invalid size for Array 2.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers for Array 2:\n", n2);
+    for (int i = 0; i < n2; i++) {
+        printf("Array2 [%d]: ", i);
+        if (scanf("%d", &arr2[i]) != 1) {
+            printf("Error: Invalid input. Expected an integer.\n");
+            return 1;
+        }
+    }
+
+    for (int i = 0; i < n1; i++) {
+        if (isPresent(arr2, n2, arr1[i])) {
+            if (!isPresent(intersectionArr, intersectionSize, arr1[i])) {
+                intersectionArr[intersectionSize] = arr1[i];
+                intersectionSize++;
+            }
+        }
+    }
+
+    printf("\nIntersection of the two arrays (Total Unique Common Elements: %d):\n", intersectionSize);
+    if (intersectionSize == 0) {
+        printf("No common elements exist between the arrays.\n");
+    } else {
+        for (int i = 0; i < intersectionSize; i++) {
+            printf("%d ", intersectionArr[i]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
