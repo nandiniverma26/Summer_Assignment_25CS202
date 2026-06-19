@@ -1,0 +1,68 @@
+// wap to subtract matrices 
+
+#include <stdio.h>
+
+#define MAX_ROWS 10
+#define MAX_COLS 10
+
+int main() {
+    int matA[MAX_ROWS][MAX_COLS];
+    int matB[MAX_ROWS][MAX_COLS];
+    int difference[MAX_ROWS][MAX_COLS];
+    int r1, c1, r2, c2;
+
+    printf("Enter rows and columns for Matrix A (Max %dx%d): ", MAX_ROWS, MAX_COLS);
+    if (scanf("%d %d", &r1, &c1) != 2 || r1 <= 0 || r1 > MAX_ROWS || c1 <= 0 || c1 > MAX_COLS) {
+        printf("Error: Invalid dimensions for Matrix A.\n");
+        return 1;
+    }
+
+    printf("Enter rows and columns for Matrix B (Max %dx%d): ", MAX_ROWS, MAX_COLS);
+    if (scanf("%d %d", &r2, &c2) != 2 || r2 <= 0 || r2 > MAX_ROWS || c2 <= 0 || c2 > MAX_COLS) {
+        printf("Error: Invalid dimensions for Matrix B.\n");
+        return 1;
+    }
+
+    if (r1 != r2 || c1 != c2) {
+        printf("Error: Matrix subtraction undefined. Dimensions must match exactly (%dx%d vs %dx%d).\n", r1, c1, r2, c2);
+        return 1;
+    }
+
+    printf("\nEnter elements for Matrix A (Minuend):\n");
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c1; j++) {
+            printf("MatA[%d][%d]: ", i, j);
+            if (scanf("%d", &matA[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    printf("\nEnter elements for Matrix B (Subtrahend):\n");
+    for (int i = 0; i < r2; i++) {
+        for (int j = 0; j < c2; j++) {
+            printf("MatB[%d][%d]: ", i, j);
+            if (scanf("%d", &matB[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c1; j++) {
+            difference[i][j] = matA[i][j] - matB[i][j];
+        }
+    }
+
+    printf("\n--- Resulting Difference Matrix (A - B) (%dx%d) ---\n", r1, c1);
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c1; j++) {
+            printf("%d\t", difference[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}

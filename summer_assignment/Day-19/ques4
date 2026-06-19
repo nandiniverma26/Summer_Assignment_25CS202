@@ -1,0 +1,46 @@
+// wap to find diagonal sum 
+
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+int main() {
+    int matrix[MAX_SIZE][MAX_SIZE];
+    int n;
+    int primarySum = 0;
+    int secondarySum = 0;
+
+    printf("Enter the size 'N' for the square matrix (Max %d): ", MAX_SIZE);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
+        printf("Error: Invalid size. Must be between 1 and %d.\n", MAX_SIZE);
+        return 1;
+    }
+    printf("\nEnter elements for the %dx%d matrix:\n", n, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            if (scanf("%d", &matrix[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        primarySum += matrix[i][i];                 
+        secondarySum += matrix[i][n - 1 - i];       
+    }
+
+    int totalSum = primarySum + secondarySum;
+    if (n % 2 != 0) {
+        int centerIndex = n / 2;
+        totalSum -= matrix[centerIndex][centerIndex];
+    }
+
+    printf("\n--- Diagonal Sum Results ---\n");
+    printf("Primary Diagonal Sum   = %d\n", primarySum);
+    printf("Secondary Diagonal Sum = %d\n", secondarySum);
+    printf("Total Distinct Sum     = %d\n", totalSum);
+
+    return 0;
+}
