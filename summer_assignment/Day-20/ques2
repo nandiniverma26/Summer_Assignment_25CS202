@@ -1,0 +1,49 @@
+// wap to check symmetric matrix 
+
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+int main() {
+    int matrix[MAX_SIZE][MAX_SIZE];
+    int n;
+    int isSymmetric = 1; 
+
+    printf("Enter the size 'N' for the square matrix (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
+        printf("Error: Invalid size. Must be between 1 and %d.\n", MAX_SIZE);
+        return 1;
+    }
+
+    printf("\nEnter elements for the %dx%d matrix:\n", n, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            if (scanf("%d", &matrix[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (matrix[i][j] != matrix[j][i]) {
+                isSymmetric = 0; 
+                break;           
+            }
+        }
+        if (!isSymmetric) {
+            break; 
+        }
+    }
+
+    printf("\n--- Result ---\n");
+    if (isSymmetric) {
+        printf("The matrix is symmetric.\n");
+    } else {
+        printf("The matrix is NOT symmetric.\n");
+    }
+
+    return 0;
+}

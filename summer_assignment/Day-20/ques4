@@ -1,0 +1,42 @@
+// wap to find column-wise sum 
+
+#include <stdio.h>
+
+#define MAX_ROWS 10
+#define MAX_COLS 10
+
+int main() {
+    int matrix[MAX_ROWS][MAX_COLS];
+    int colSums[MAX_COLS] = {0}; 
+    int rows, cols;
+
+    printf("Enter rows and columns (Max %dx%d): ", MAX_ROWS, MAX_COLS);
+    if (scanf("%d %d", &rows, &cols) != 2 || rows <= 0 || rows > MAX_ROWS || cols <= 0 || cols > MAX_COLS) {
+        printf("Error: Invalid dimensions. Constraints are 1 to %d.\n", MAX_ROWS);
+        return 1;
+    }
+
+    printf("\nEnter elements for the %dx%d matrix:\n", rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            if (scanf("%d", &matrix[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            colSums[j] += matrix[i][j];
+        }
+    }
+
+    printf("\n--- Column-Wise Sum Results ---\n");
+    for (int j = 0; j < cols; j++) {
+        printf("Sum of Column %d = %d\n", j + 1, colSums[j]);
+    }
+
+    return 0;
+}

@@ -1,0 +1,71 @@
+// wap to multiply matrices 
+
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+int main() {
+    int matA[MAX_SIZE][MAX_SIZE];
+    int matB[MAX_SIZE][MAX_SIZE];
+    int result[MAX_SIZE][MAX_SIZE];
+    int r1, c1, r2, c2;
+
+    printf("Enter rows and columns for Matrix A (Max %dx%d): ", MAX_SIZE, MAX_SIZE);
+    if (scanf("%d %d", &r1, &c1) != 2 || r1 <= 0 || r1 > MAX_SIZE || c1 <= 0 || c1 > MAX_SIZE) {
+        printf("Error: Invalid dimensions for Matrix A.\n");
+        return 1;
+    }
+
+    printf("Enter rows and columns for Matrix B (Max %dx%d): ", MAX_SIZE, MAX_SIZE);
+    if (scanf("%d %d", &r2, &c2) != 2 || r2 <= 0 || r2 > MAX_SIZE || c2 <= 0 || c2 > MAX_SIZE) {
+        printf("Error: Invalid dimensions for Matrix B.\n");
+        return 1;
+    }
+
+    if (c1 != r2) {
+        printf("Error: Matrix multiplication undefined. Columns of A (%d) must match Rows of B (%d).\n", c1, r2);
+        return 1;
+    }
+
+    printf("\nEnter elements for Matrix A (%dx%d):\n", r1, c1);
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c1; j++) {
+            printf("MatA[%d][%d]: ", i, j);
+            if (scanf("%d", &matA[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    printf("\nEnter elements for Matrix B (%dx%d):\n", r2, c2);
+    for (int i = 0; i < r2; i++) {
+        for (int j = 0; j < c2; j++) {
+            printf("MatB[%d][%d]: ", i, j);
+            if (scanf("%d", &matB[i][j]) != 1) {
+                printf("Error: Invalid integer input.\n");
+                return 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            result[i][j] = 0; 
+    
+            for (int k = 0; k < c1; k++) {
+                result[i][j] += matA[i][k] * matB[k][j];
+            }
+        }
+    }
+
+    printf("\n--- Resulting Product Matrix (%dx%d) ---\n", r1, c2);
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            printf("%d\t", result[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
