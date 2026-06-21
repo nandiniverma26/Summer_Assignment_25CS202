@@ -1,0 +1,31 @@
+// wap to find string length without strlen()
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char str[MAX_SIZE];
+    int length = 0;
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    while (str[length] != '\0') {
+        length++;
+    }
+
+    if (length > 0 && str[length - 1] == '\n') {
+        length--;
+        str[length] = '\0'; 
+    }
+
+    printf("\nProcessed String: \"%s\"\n", str);
+    printf("Actual String Length: %d\n", length);
+
+    return 0;
+}
