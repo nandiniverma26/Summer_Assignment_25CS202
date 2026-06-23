@@ -1,0 +1,33 @@
+// wap to count words in a sentence 
+
+#include <stdio.h>
+#include <ctype.h> 
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int wordCount = 0;
+    int inWord = 0; 
+
+    printf("Enter a sentence: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isspace((unsigned char)str[i])) {
+            inWord = 0; 
+        } 
+        else if (inWord == 0) {
+            inWord = 1;
+            wordCount++;  
+        }
+    }
+
+    printf("\nTotal word count: %d\n", wordCount);
+
+    return 0;
+}

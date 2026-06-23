@@ -1,0 +1,47 @@
+// wap to find first repeating character 
+
+#include <stdio.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int visited[256] = {0}; 
+    int foundIndex = -1;
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    if (length > 0 && str[length - 1] == '\n') {
+        str[length - 1] = '\0';
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)str[i];
+
+        if (visited[ch] == 1) {
+            foundIndex = i;
+            break; 
+        }
+
+        visited[ch] = 1;
+    }
+
+    printf("\n--- Analysis Result ---\n");
+    if (foundIndex != -1) {
+        printf("First repeating character (by earliest duplication): '%c'\n", str[foundIndex]);
+        printf("Repeated instance detected at index position: [%d]\n", foundIndex);
+    } else {
+        printf("No repeating characters exist in the provided string.\n");
+    }
+
+    return 0;
+}

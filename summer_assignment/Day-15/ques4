@@ -1,26 +1,16 @@
-// wap to rotate array right 
+// wap to move zeroes to end
 
-   #include <stdio.h>
+#include <stdio.h>
 
 #define MAX_SIZE 100
 
-void reverse(int arr[], int start, int end) {
-    while (start < end) {
-        int temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
-        start++;
-        end--;
-    }
-}
-
 int main() {
     int arr[MAX_SIZE];
-    int n, d;
+    int n;
 
     printf("Enter the number of elements (1 to %d): ", MAX_SIZE);
     if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
-        printf("Error: Invalid size.\n");
+        printf("Error: Invalid size. Must be between 1 and %d.\n", MAX_SIZE);
         return 1;
     }
 
@@ -28,26 +18,26 @@ int main() {
     for (int i = 0; i < n; i++) {
         printf("Element [%d]: ", i);
         if (scanf("%d", &arr[i]) != 1) {
-            printf("Error: Invalid input.\n");
+            printf("Error: Invalid integer input.\n");
             return 1;
         }
     }
 
-    printf("Enter the number of positions to right rotate: ");
-    if (scanf("%d", &d) != 1 || d < 0) {
-        printf("Error: Invalid rotation count.\n");
-        return 1;
+    int writePtr = 0;
+
+    for (int readPtr = 0; readPtr < n; readPtr++) {
+        if (arr[readPtr] != 0) {
+            arr[writePtr] = arr[readPtr];
+            writePtr++;
+        }
     }
 
-    d = d % n;
-
-    if (d > 0) {
-        reverse(arr, 0, n - 1); 
-        reverse(arr, 0, d - 1); 
-        reverse(arr, d, n - 1); 
+    while (writePtr < n) {
+        arr[writePtr] = 0;
+        writePtr++;
     }
 
-    printf("\nArray after right rotation:\n");
+    printf("\nArray after moving zeroes to the end:\n");
     for (int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }

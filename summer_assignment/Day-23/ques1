@@ -1,0 +1,48 @@
+// wap to find first non-repeating character 
+
+#include <stdio.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int freq[256] = {0}; 
+    int foundIndex = -1;
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    if (length > 0 && str[length - 1] == '\n') {
+        str[length - 1] = '\0';
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)str[i];
+        freq[ch]++;
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)str[i];
+        if (freq[ch] == 1) {
+            foundIndex = i;
+            break; 
+        }
+    }
+
+    printf("\n--- Analysis Result ---\n");
+    if (foundIndex != -1) {
+        printf("The first non-repeating character is '%c' at index position [%d].\n", str[foundIndex], foundIndex);
+    } else {
+        printf("No non-repeating character exists in the provided string.\n");
+    }
+
+    return 0;
+}

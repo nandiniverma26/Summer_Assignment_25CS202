@@ -1,0 +1,57 @@
+// wap to find maixmum occuring character 
+
+#include <stdio.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int freq[256] = {0}; 
+    int maxFreq = 0;
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    if (length > 0 && str[length - 1] == '\n') {
+        str[length - 1] = '\0';
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)str[i];
+        
+        freq[ch]++;
+        
+        if (freq[ch] > maxFreq) {
+            maxFreq = freq[ch];
+        }
+    }
+
+    if (maxFreq == 0) {
+        printf("\nResult: The input string contains no measurable characters.\n");
+        return 0;
+    }
+
+    printf("\n--- Analysis Results ---\n");
+    printf("Highest Frequency Recorded: %d time(s)\n", maxFreq);
+    printf("Character(s) with this occurrence rate:\n");
+
+    for (int i = 0; i < 256; i++) {
+        if (freq[i] == maxFreq) {
+            if (i == ' ') {
+                printf("- [Space Character]\n");
+            } else {
+                printf("- '%c'\n", i);
+            }
+        }
+    }
+
+    return 0;
+}

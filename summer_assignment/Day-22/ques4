@@ -1,0 +1,31 @@
+// wap to remove spaces from string 
+
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char str[MAX_SIZE];
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int writePtr = 0;
+
+    for (int readPtr = 0; str[readPtr] != '\0'; readPtr++) {
+        if (str[readPtr] != ' ') {
+            str[writePtr] = str[readPtr];
+            writePtr++;
+        }
+    }
+    
+    str[writePtr] = '\0';
+
+    printf("\nString after removing spaces: %s", str);
+
+    return 0;
+}

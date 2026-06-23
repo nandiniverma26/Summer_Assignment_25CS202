@@ -1,0 +1,60 @@
+// wap to check palindrome string 
+
+#include <stdio.h>
+#include <ctype.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char str[MAX_SIZE];
+    int length = 0;
+    int isPalindrome = 1; 
+
+    printf("Enter a string/phrase: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    while (str[length] != '\0') {
+        length++;
+    }
+
+    if (length > 0 && str[length - 1] == '\n') {
+        length--;
+        str[length] = '\0';
+    }
+
+    int left = 0;
+    int right = length - 1;
+
+    while (left < right) {
+        while (left < right && !isalnum((unsigned char)str[left])) {
+            left++;
+        }
+        while (left < right && !isalnum((unsigned char)str[right])) {
+            right--;
+        }
+ 
+        char charLeft = tolower((unsigned char)str[left]);
+        char charRight = tolower((unsigned char)str[right]);
+
+        if (charLeft != charRight) {
+            isPalindrome = 0; 
+            break;            
+        }
+
+        left++;
+        right--;
+    }
+
+    printf("\n--- Result ---\n");
+    if (isPalindrome) {
+        printf("The input string is a valid palindrome.\n");
+    } else {
+        printf("The input string is NOT a palindrome.\n");
+    }
+
+    return 0;
+}

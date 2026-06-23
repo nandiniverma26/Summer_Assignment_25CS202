@@ -1,0 +1,47 @@
+// wap to character frequency 
+
+#include <stdio.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int freq[256] = {0}; 
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    if (length > 0 && str[length - 1] == '\n') {
+        str[length - 1] = '\0';
+    }
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char index = (unsigned char)str[i];
+        freq[index]++;
+    }
+
+    printf("\n--- Character Frequencies ---\n");
+    for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)str[i];
+
+        if (freq[ch] > 0) {
+            if (ch == ' ') {
+                printf("[Space] : %d time(s)\n", freq[ch]);
+            } else {
+                printf("'%c'     : %d time(s)\n", ch, freq[ch]);
+            }
+            
+            freq[ch] = 0;
+        }
+    }
+
+    return 0;
+}

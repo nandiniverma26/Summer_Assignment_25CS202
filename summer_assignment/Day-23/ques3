@@ -1,0 +1,70 @@
+// wap to check anagram strings 
+
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+int sanitizeAndGetLength(char str[]) {
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    if (len > 0 && str[len - 1] == '\n') {
+        len--;
+        str[len] = '\0';
+    }
+    return len;
+}
+
+int main() {
+    char str1[MAX_SIZE];
+    char str2[MAX_SIZE];
+    int freq[256] = {0}; 
+    int isAnagram = 1;
+
+    printf("Enter the first string: ");
+    if (fgets(str1, sizeof(str1), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    printf("Enter the second string: ");
+    if (fgets(str2, sizeof(str2), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int len1 = sanitizeAndGetLength(str1);
+    int len2 = sanitizeAndGetLength(str2);
+
+    if (len1 != len2) {
+        printf("\nResult: The strings are NOT anagrams (Length mismatch).\n");
+        return 0;
+    }
+
+    for (int i = 0; i < len1; i++) {
+        unsigned char char1 = (unsigned char)tolower((unsigned char)str1[i]);
+        unsigned char char2 = (unsigned char)tolower((unsigned char)str2[i]);
+
+        freq[char1]++;
+        freq[char2]--;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (freq[i] != 0) {
+            isAnagram = 0; 
+            break;
+        }
+    }
+
+    printf("\n--- Analysis Result ---\n");
+    if (isAnagram) {
+        printf("The strings are valid anagrams.\n");
+    } else {
+        printf("The strings are NOT anagrams.\n");
+    }
+
+    return 0;
+}
