@@ -1,0 +1,62 @@
+// wap to compress a string 
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char str[MAX_SIZE];
+    char compressed[MAX_SIZE * 2]; 
+    
+    printf("Enter a string to compress: ");
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int originalLen = 0;
+    while (str[originalLen] != '\0') {
+        originalLen++;
+    }
+    if (originalLen > 0 && str[originalLen - 1] == '\n') {
+        originalLen--;
+        str[originalLen] = '\0';
+    }
+
+    if (originalLen == 0) {
+        printf("Result: String is empty.\n");
+        return 0;
+    }
+
+    int writeIdx = 0;
+    for (int i = 0; i < originalLen; i++) {
+        int count = 1;
+        
+        while (i + 1 < originalLen && str[i] == str[i + 1]) {
+            count++;
+            i++;
+        }
+
+        int remainingSpace = sizeof(compressed) - writeIdx;
+        
+        int written = snprintf(&compressed[writeIdx], remainingSpace, "%c%d", str[i], count);
+        
+        if (written < 0 || written >= remainingSpace) {
+            printf("Error: Compression buffer limits breached.\n");
+            return 1;
+        }
+        writeIdx += written;
+    }
+
+    printf("\n--- Compression Analysis ---\n");
+    if (writeIdx >= originalLen) {
+        printf("Notice: Compression yielded no space savings.\n");
+        printf("Returned Original String: \"%s\"\n", str);
+    } else {
+        printf("Success: String compressed efficiently.\n");
+        printf("Compressed Result: \"%s\"\n", compressed);
+    }
+
+    return 0;
+}

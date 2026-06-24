@@ -1,0 +1,43 @@
+// wap to remove duplicate characters 
+
+#include <stdio.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    int visited[256] = {0}; 
+
+    printf("Enter a string: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    if (length > 0 && str[length - 1] == '\n') {
+        str[length - 1] = '\0';
+    }
+
+    int writePtr = 0;
+
+    for (int readPtr = 0; str[readPtr] != '\0'; readPtr++) {
+        unsigned char ch = (unsigned char)str[readPtr];
+
+        if (visited[ch] == 0) {
+            visited[ch] = 1;              
+            str[writePtr] = str[readPtr]; 
+            writePtr++;                   
+        }
+    }
+    
+    str[writePtr] = '\0';
+
+    printf("\nString after removing duplicate characters: \"%s\"\n", str);
+
+    return 0;
+}

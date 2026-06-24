@@ -1,0 +1,57 @@
+// wap to find longest word 
+
+#include <stdio.h>
+#include <ctype.h>
+
+#define MAX_SIZE 256
+
+int main() {
+    char str[MAX_SIZE];
+    
+    int maxLen = 0;
+    int maxStartIdx = 0;
+
+    int currentLen = 0;
+    int currentStartIdx = 0;
+
+    printf("Enter a sentence: ");
+    
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    for (int i = 0; ; i++) {
+        char ch = str[i];
+
+        if (isalnum((unsigned char)ch)) {
+            if (currentLen == 0) {
+                currentStartIdx = i; 
+            }
+            currentLen++;
+        } 
+        else {
+            if (currentLen > maxLen) {
+                maxLen = currentLen;
+                maxStartIdx = currentStartIdx;
+            }
+            
+            currentLen = 0; 
+
+            if (ch == '\0') {
+                break;
+            }
+        }
+    }
+
+    printf("\n--- Analysis Result ---\n");
+    if (maxLen == 0) {
+        printf("No valid words found in the provided string.\n");
+    } else {
+        printf("Longest Word Length: %d character(s)\n", maxLen);
+        
+        printf("Longest Word Identified: \"%.*s\"\n", maxLen, &str[maxStartIdx]);
+    }
+
+    return 0;
+}
