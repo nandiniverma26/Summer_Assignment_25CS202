@@ -1,0 +1,76 @@
+// wap to sort names alphabetically
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_NAMES 20
+#define MAX_LEN 50
+
+int true_alpha_cmp(const char *s1, const char *s2) {
+    while (*s1 && *s2) {
+        char c1 = tolower((unsigned char)*s1);
+        char c2 = tolower((unsigned char)*s2);
+        
+        if (c1 != c2) {
+            return c1 - c2;
+        }
+        s1++;
+        s2++;
+    }
+    return tolower((unsigned char)*s1) - tolower((unsigned char)*s2);
+}
+
+int main() {
+    char names[MAX_NAMES][MAX_LEN];
+    char temp[MAX_LEN];
+    int n;
+
+    printf("Enter the number of names to sort (1 to %d): ", MAX_NAMES);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_NAMES) {
+        printf("Error: Invalid name count.\n");
+        return 1;
+    }
+
+    while (getchar() != '\n');
+
+    printf("\nEnter %d names:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("Name [%d]: ", i + 1);
+        if (fgets(names[i], sizeof(names[i]), stdin) == NULL) {
+            printf("Error: Failed to read string input.\n");
+            return 1;
+        }
+
+        int len = 0;
+        while (names[i][len] != '\0') len++;
+        if (len > 0 && names[i][len - 1] == '\n') {
+            names[i][len - 1] = '\0';
+        }
+    }
+
+    for (int i = 0; i < n - 1; i++) {
+        int swapped = 0;
+
+        for (int j = 0; j < n - i - 1; j++) {
+            if (true_alpha_cmp(names[j], names[j + 1]) > 0) {
+                strcpy(temp, names[j]);
+                strcpy(names[j], names[j + 1]);
+                strcpy(names[j + 1], temp);
+                
+                swapped = 1;
+            }
+        }
+        
+        if (swapped == 0) {
+            break;
+        }
+    }
+
+    printf("\n--- Alphabetically Sorted Names ---\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", names[i]);
+    }
+
+    return 0;
+}

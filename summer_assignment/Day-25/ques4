@@ -1,0 +1,75 @@
+// wap to sort words by length 
+
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX_WORDS 50
+#define MAX_WORD_LEN 30
+#define MAX_LINE_LEN 500
+
+int main() {
+    char line[MAX_LINE_LEN];
+    char words[MAX_WORDS][MAX_WORD_LEN];
+    char *wordPtrs[MAX_WORDS]; 
+    int wordCount = 0;
+
+    printf("Enter a sentence: ");
+    
+    if (fgets(line, sizeof(line), stdin) == NULL) {
+        printf("Error: Failed to read input stream.\n");
+        return 1;
+    }
+
+    int wordLen = 0;
+    for (int i = 0; line[i] != '\0'; i++) {
+        if (isalnum((unsigned char)line[i])) {
+            if (wordLen < MAX_WORD_LEN - 1) {
+                words[wordCount][wordLen++] = line[i];
+            }
+        } 
+        else if (wordLen > 0) {
+            words[wordCount][wordLen] = '\0'; 
+            wordPtrs[wordCount] = words[wordCount]; 
+            wordCount++;
+            wordLen = 0; 
+
+            if (wordCount >= MAX_WORDS) {
+                break; 
+            }
+        }
+    }
+
+    if (wordLen > 0 && wordCount < MAX_WORDS) {
+        words[wordCount][wordLen] = '\0';
+        wordPtrs[wordCount] = words[wordCount];
+        wordCount++;
+    }
+
+    if (wordCount == 0) {
+        printf("\nResult: No valid words found to sort.\n");
+        return 0;
+    }
+
+    for (int i = 0; i < wordCount - 1; i++) {
+        int swapped = 0;
+        for (int j = 0; j < wordCount - i - 1; j++) {
+            if (strlen(wordPtrs[j]) > strlen(wordPtrs[j + 1])) {
+                char *temp = wordPtrs[j];
+                wordPtrs[j] = wordPtrs[j + 1];
+                wordPtrs[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        if (!swapped) {
+            break; 
+        }
+    }
+
+    printf("\n--- Words Sorted by Length (Ascending) ---\n");
+    for (int i = 0; i < wordCount; i++) {
+        printf("%-15s (Length: %lu)\n", wordPtrs[i], strlen(wordPtrs[i]));
+    }
+
+    return 0;
+}

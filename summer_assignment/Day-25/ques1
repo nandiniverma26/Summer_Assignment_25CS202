@@ -1,0 +1,84 @@
+// wap to merge 2 sorted arrays 
+
+#include <stdio.h>
+
+#define MAX_SIZE 50
+
+int main() {
+    int arr1[MAX_SIZE], arr2[MAX_SIZE];
+    int merged[MAX_SIZE * 2]; 
+    int n1, n2;
+
+    printf("Enter number of elements for Array 1 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n1) != 1 || n1 <= 0 || n1 > MAX_SIZE) {
+        printf("Error: Invalid size constraint for Array 1.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers in SORTED (ascending) order:\n", n1);
+    for (int i = 0; i < n1; i++) {
+        printf("Arr1 [%d]: ", i);
+        if (scanf("%d", &arr1[i]) != 1) {
+            printf("Error: Invalid integer configuration.\n");
+            return 1;
+        }
+        if (i > 0 && arr1[i] < arr1[i - 1]) {
+            printf("Error: Input is unsorted. Linear merge logic cannot execute.\n");
+            return 1;
+        }
+    }
+
+    printf("\nEnter number of elements for Array 2 (1 to %d): ", MAX_SIZE);
+    if (scanf("%d", &n2) != 1 || n2 <= 0 || n2 > MAX_SIZE) {
+        printf("Error: Invalid size constraint for Array 2.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers in SORTED (ascending) order:\n", n2);
+    for (int j = 0; j < n2; j++) {
+        printf("Arr2 [%d]: ", j);
+        if (scanf("%d", &arr2[j]) != 1) {
+            printf("Error: Invalid integer configuration.\n");
+            return 1;
+        }
+        if (j > 0 && arr2[j] < arr2[j - 1]) {
+            printf("Error: Input is unsorted. Linear merge logic cannot execute.\n");
+            return 1;
+        }
+    }
+
+    int i = 0; 
+    int j = 0; 
+    int k = 0; 
+
+    while (i < n1 && j < n2) {
+        if (arr1[i] <= arr2[j]) {
+            merged[k] = arr1[i];
+            i++;
+        } else {
+            merged[k] = arr2[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        merged[k] = arr1[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        merged[k] = arr2[j];
+        j++;
+        k++;
+    }
+
+    printf("\n--- Merged Sorted Array (%d elements) ---\n", k);
+    for (int idx = 0; idx < k; idx++) {
+        printf("%d ", merged[idx]);
+    }
+    printf("\n");
+
+    return 0;
+}
